@@ -57,6 +57,79 @@ def handle_borrow(name:str, membership_number:int,book):
 
 ################################
 
+####### HANDLE RETURN THE BOOK #######
+
+# Here, due_date will be equal 7
+def calculate_fine(today, due_date):
+    '''
+    Function created to calculate the fine
+    :param today:
+    :param due_date:
+    :return: fine that the person will pay
+    '''
+    fine = today - due_date
+    if fine.days > 7:
+        #Here is 2 because it is 2 euros per day
+        return 2 * (fine.days - 7)
+
+    return 0
+
+def list_books_borrowed_by_user(name, membership):
+    '''
+    The idea behind this function is read the file borrowed_book.txt
+    and bring the membership number and date separate
+    :param name:
+    :param membership:
+    :return:
+    '''
+    books_borrowed = []
+    with open('borrowed_books.txt', 'r') as document:
+        for line in document:
+            parts = line.strip().split(',')
+            if parts[0].strip() == name and parts[1].strip() == membership:
+                book_title = parts[2].strip()
+                borrow_date = parts[3].strip()
+                books_borrowed.append((book_title, borrow_date))
+    return books_borrowed
+
+def handle_return_book(membership):
+
+
+
+    name = input('Enter your name >>> ')
+    books_borrowed = list_books_borrowed_by_user(name, membership)
+    if not books_borrowed:
+        print('No books were found to return.')
+        return
+
+    print('Books you have borrowed:')
+    for i, title, due_date in enumerate(books_borrowed, start=1):
+        print(f'{i}. {title} (Due by: {due_date})')
+
+    book_index = int(input('Select the number of the book you wish to return: ')) - 1
+    book_to_return, due_date_str = books_borrowed[book_index]
+
+    #Here, we are going to check if the book is overdue
+    due_date = datetime.datetime.strptime(due_date_str, "%Y-%m-%d").date()
+    today = datetime.date.today()
+    fine = 0
+    if(today - due_date).days > 7:
+        fine = calculate_fine(today, due_date)
+        print(f'The book is overdue. Your fine is {fine} euros')
+    else:
+        print('Thank you for returning the book on time.')
+
+    #Here, remove the book from borrowed_books.txt
+    with open('borrowed_books.txt', 'r') as document:
+        lines = document.readlines()
+    with open('borrowed_books.txt', 'w') as document:
+        for line in lines:
+            if line.strip() != f"{name}, {membership}, {book_to_return}, {due_date_str}":
+                document.write(line)
+    print(f'{book_to_return} has been returned successfully!')
+
+#################################
+
 ####### FUNCTION MAIN ##########
 def main():
     while True:
