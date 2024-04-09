@@ -7,6 +7,16 @@ membership_list = []
 
 
 ####### HANDLE BORROW BOOK ######
+
+def count_books_borrowed(membership):
+    count = 0
+    with open('borrowed_books.txt', 'r') as document:
+        for line in document:
+            parts = line.strip().split(',')
+            if str(membership) == parts[1].strip():
+                count += 1
+    return count
+
 def handle_borrow(name:str, membership_number:int,book):
     # here we are open the file as reading, then split each part and appending it in the array
     with open('book_inventory.txt', 'r') as document:
@@ -23,7 +33,7 @@ def handle_borrow(name:str, membership_number:int,book):
     
     print(f'Name: {name}, Membership Number: {membership_number}')
 
-    more_than_4 = membership_list.count(membership_str)
+    more_than_4 = count_books_borrowed(membership_number)
     # Here, we are checking if the user has more than 4 or not, if he/she has more they cannot borrow anymore
     if book in book_names:
         print(f'{book} is in the inventory, you can borrow it!')
@@ -93,7 +103,11 @@ def list_books_borrowed_by_user(name, membership):
     return books_borrowed
 
 def handle_return_book(membership):
-
+    '''
+    This function bring us the books that the user wants to return
+    showing us via index the books selected
+    :param membership:
+    '''
     name = input('Enter your name >>> ')
     books_borrowed = list_books_borrowed_by_user(name, membership)
     if not books_borrowed:
@@ -126,6 +140,57 @@ def handle_return_book(membership):
     print(f'{book_to_return} has been returned successfully!')
 
 #################################
+
+####### REVIEW BORROWED BOOK #######
+
+def display_borrowed_books():
+    '''
+    It is going to show the books borrowed
+    :return:
+    '''
+    print('All borrowed books:')
+    with open('borrowed_books.txt', 'r') as document:
+        for line in document:
+            parts = line.strip().split(',')
+            if len(parts) < 4: continue
+            print(f"Member: {parts[0]}, Book: {parts[2]}, Borrow Date: {parts[3]}")
+
+
+def display_books_by_user():
+    '''
+    Show us specific user's book
+    :return:
+    '''
+    member_name = input('Enter the user name to view their borrowed books:')
+    print(f'Borrowed books by {member_name}: ')
+    found = False
+    with open('borrowed_books.txt', 'r') as document:
+        for line in document:
+            parts = line.strip().split(',')
+            if parts[0].strip() == member_name:
+                found = True
+            print(f"Member: {parts[0]}, Book: {parts[2]}, Borrow Date: {parts[3]}")
+    if not found:
+        print('No books found for this member!')
+
+def review_borrowed_books():
+    while True:
+        print("Review Borrowed Books:\n"
+              "1. Display all borrowed books\n"
+              "2. Display books borrowed by a specific member\n"
+              "3. Back to main menu:\n")
+        choice = input('Choose an option: ')
+
+        if choice == '1':
+            display_borrowed_books()
+        elif choice == '2':
+            display_books_by_user()
+        elif choice == '3':
+            break
+        else:
+            print("Invalid option, please try again.")
+
+
 
 ####### FUNCTION MAIN ##########
 def main():
@@ -163,8 +228,8 @@ def main():
             membership_number = input('Insert membership number >>> ')
             handle_return_book(membership_number)
 
-        # elif user_choice == 3:
-            
+        elif user_choice == 3:
+            review_borrowed_books()
         # elif user_choice == 4:
         #     break
 ################################
