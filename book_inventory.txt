@@ -12,3 +12,4 @@ Jane Eyre, Charlotte Brontë, 14, 0
 Wuthering Heights, Emily Brontë, 13, 0
 Frankenstein, Mary Shelley, 13, 0
 Big Sudoku book, Daily Mail, 5, 0
+New, Francis, 5, 10

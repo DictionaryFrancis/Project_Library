@@ -190,6 +190,109 @@ def review_borrowed_books():
         else:
             print("Invalid option, please try again.")
 
+#################################
+
+########## MANAGE INVENTORY #############
+
+def display_inventory():
+    '''
+    display the file book_inventory
+    :return:
+    '''
+    with open('book_inventory.txt') as document:
+        books = document.readlines()
+        print('Current Inventory:')
+        for book in books:
+            print(book.strip())
+
+def add_new_book():
+    '''
+    function to add new book in the list(file book_inventory.txt)
+    :return:
+    '''
+
+    title = input('Enter the book title > ')
+    author = input("Enter the author's name > ")
+    total_copies = input('Enter the total copies available > ')
+    copies_borrowed = input('Enter the copies borrowed > ')
+    with open('book_inventory.txt', 'a') as document:
+        document.write(f"{title}, {author}, {total_copies}, {copies_borrowed}\n")
+    print('Book added!')
+
+def remove_book():
+    '''
+    function to remove book in the list(file book_inventory.txt)
+    :return:
+    '''
+
+    title_removed = input('Enter the title of the book to remove > ')
+    with open('book_inventory.txt', 'r') as document:
+        books = document.readlines()
+    with open('book_inventory.txt', 'w') as document:
+        for book in books:
+            if title_removed not in book.split(',')[0]:
+                document.write(book)
+    print('Book remeved!')
+
+
+
+def update_book():
+    '''
+    function to update book in the list(file book_inventory.txt)
+    :return:
+    '''
+
+    title_to_update = input('Enter the title of the book to update: ')
+    print("Do you want to update:\n"
+          "1. Total copies available\n"
+          "2. Copies borrowed")
+    choice = input('Choose an option > ')
+    new_value = input('Enter the new value > ')
+
+    update_book = []
+
+    with open('book_inventory.txt', 'r') as document:
+        for book in document:
+            parts = book.strip().split(', ')
+            if parts[0] == title_to_update:
+                if choice == '1':
+                    parts[2] = new_value
+                elif choice == '2':
+                    parts[3] = new_value
+                update_book.append(', '.join(parts) + '\n')
+            else:
+                update_book.append(book)
+
+    with open('book_inventory.txt', 'w') as document:
+        document.writelines(update_book)
+    print('Book updated!')
+
+
+def manage_inventory():
+    '''
+    This function will manage the inventory, so the admin choices
+    :return:
+    '''
+
+    while True:
+        print("Choose an option:\n"
+              "1. Add a new book\n"
+              "2. Remove a book\n"
+              "3. Update book details:\n"
+              "4. Return to main menu")
+        choice = input('Choose an option: ')
+
+        if choice == '1':
+            add_new_book()
+        elif choice == '2':
+            remove_book()
+        elif choice == '3':
+            update_book()
+        elif choice == '4':
+            break
+        else:
+            print("Invalid option, please try again.")
+
 
 
 ####### FUNCTION MAIN ##########
@@ -230,8 +333,8 @@ def main():
 
         elif user_choice == 3:
             review_borrowed_books()
-        # elif user_choice == 4:
-        #     break
+        elif user_choice == 4:
+            manage_inventory()
 ################################
 
 if __name__ == '__main__':
