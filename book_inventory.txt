@@ -1,0 +1,14 @@
+The Great Gatsby, F. Scott Fitzgerald, 10, 0
+To Kill a Mockingbird, Harper Lee, 15, 0
+Pride and Prejudice, Jane Austen, 12, 0
+The Catcher in the Rye, J.D. Salinger, 15, 0
+1984, George Orwell, 9, 0
+The Great Gatsby, F. Scott Fitzgerald, 13, 0
+Lord of the Flies, William Golding, 12, 0
+The Hobbit, J.R.R. Tolkien, 12, 0
+Animal Farm, George Orwell, 12, 0
+Little Women, Louisa May Alcott, 10, 0
+Jane Eyre, Charlotte Brontë, 14, 0
+Wuthering Heights, Emily Brontë, 13, 0
+Frankenstein, Mary Shelley, 13, 0
+Big Sudoku book, Daily Mail, 5, 0
