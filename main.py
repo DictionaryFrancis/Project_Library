@@ -94,8 +94,6 @@ def list_books_borrowed_by_user(name, membership):
 
 def handle_return_book(membership):
 
-
-
     name = input('Enter your name >>> ')
     books_borrowed = list_books_borrowed_by_user(name, membership)
     if not books_borrowed:
@@ -103,7 +101,7 @@ def handle_return_book(membership):
         return
 
     print('Books you have borrowed:')
-    for i, title, due_date in enumerate(books_borrowed, start=1):
+    for i, (title, due_date) in enumerate(books_borrowed, start=1):
         print(f'{i}. {title} (Due by: {due_date})')
 
     book_index = int(input('Select the number of the book you wish to return: ')) - 1
@@ -118,8 +116,7 @@ def handle_return_book(membership):
         print(f'The book is overdue. Your fine is {fine} euros')
     else:
         print('Thank you for returning the book on time.')
-
-    #Here, remove the book from borrowed_books.txt
+    # Here, remove the book from borrowed_books.txt
     with open('borrowed_books.txt', 'r') as document:
         lines = document.readlines()
     with open('borrowed_books.txt', 'w') as document:
@@ -162,7 +159,10 @@ def main():
                 handle_borrow(name, membership_number, book)
                 break
 
-        # elif user_choice == 2:
+        elif user_choice == 2:
+            membership_number = input('Insert membership number >>> ')
+            handle_return_book(membership_number)
+
         # elif user_choice == 3:
             
         # elif user_choice == 4:
