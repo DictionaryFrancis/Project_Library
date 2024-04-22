@@ -335,6 +335,8 @@ def main():
             review_borrowed_books()
         elif user_choice == 4:
             manage_inventory()
+        elif user_choice == 5:
+            break
 ################################
 
 if __name__ == '__main__':
