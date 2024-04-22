@@ -1,7 +1,5 @@
 Francis, 123456, The Hobbit, 2024-04-09
 Irineu, 654321, Animal Farm, 2024-04-09
-Francis, 123456, Frankenstein, 2024-04-09
 Irineu, 654321, Lord of the Flies, 2024-04-09
 Francis, 123456, The Catcher in the Rye, 2024-04-09
-Francis, 123456, Jane Eyre, 2024-04-09
 Irineu, 654321, New, 2024-04-09
